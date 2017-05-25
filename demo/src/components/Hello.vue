@@ -10,7 +10,10 @@
         <div class="submit-button">
           <mt-button type="primary" v-on:click="login">登录</mt-button>
         </div>
-        <router-link to="/tab">Go to Foo</router-link>
+        <transition name="fade">
+        	<router-link to="login/tab" v-if="isShow">Go to Foo</router-link>
+        </transition>
+        
      </div>
   </div>
 </template>
@@ -22,12 +25,14 @@ export default {
     return {
       username: '',
       password: '',
-      selected: []
+      selected: [],
+      isShow: true
     }
   },
   methods: {
     login: function () {
       console.log(this.selected.length)
+      this.isShow = !this.isShow
     }
   }
 }
@@ -43,6 +48,9 @@ export default {
     width: 100%;
     height:100%;
     background: silver;
+  }
+  .form{
+  	width: 80%;
   }
   .mint-checklist{
     text-align: right;
