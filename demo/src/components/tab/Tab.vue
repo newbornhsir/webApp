@@ -7,22 +7,14 @@
 	  <mt-button icon="more" slot="right"></mt-button>
 	</mt-header>
 
-
-  	<mt-tabbar v-model="selected">
-	  <mt-tab-item id="外卖">
-	    <!-- <img slot="icon" src="../assets/100x100.png"> -->
-	    外卖
+  	<mt-tabbar v-model="selected" value="home">
+	  <mt-tab-item id="home">
+	    首页
 	  </mt-tab-item>
-	  <mt-tab-item id="订单">
-	    <!-- <img slot="icon" src="../assets/100x100.png"> -->
-	    订单
+	  <mt-tab-item id="product">
+	    货品
 	  </mt-tab-item>
-	  <mt-tab-item id="发现">
-	    <!-- <img slot="icon" src="../assets/100x100.png"> -->
-	    发现
-	  </mt-tab-item>
-	  <mt-tab-item id="我的">
-	    <!-- <img slot="icon" src="../assets/100x100.png"> -->
+	  <mt-tab-item id="setting">
 	    我的
 	  </mt-tab-item>
 	</mt-tabbar>
@@ -33,9 +25,13 @@ export default {
   name: 'tab',
   data () {
     return {
-      username: '',
-      password: '',
-      selected: []
+      selected: 'home'
+    }
+  },
+  methods: {
+    show: function () {
+      console.log(1)
+      console.log(this.selected)
     }
   }
 }
@@ -46,5 +42,16 @@ export default {
     padding: 0 !important;
     width: 100%;
     height: 100%;
+  }
+  .mint-tabbar{
+  	height:50px;	
+  	line-height: 50px;
+  }
+  .mint-tab-item{
+  	display:flex;
+  	align-content: center;
+  	align-items:center;
+  	justify-content:center;
+  	font-size: 24px;
   }
 </style>
