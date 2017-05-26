@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue@2.3.3/dist/vue.js"></script>
+  </head>
+  <body>
+      <div class="" id="app">
+          <div class="">
+            computed date: {{computedDate}}
+          </div>
+          <div class="">
+            methods Date: {{methodDate()}}
+          </div>
+      </div>
+  </body>
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: "#app",
+      data: {
+
+      },
+      computed: {
+        computedDate : function () {
+          return Date.now();
+        }
+      },
+      methods: {
+        methodDate: function () {
+          return Date.now();
+        }
+      }
+    })
+  </script>
+</html>

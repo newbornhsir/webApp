@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue@2.3.3/dist/vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <div class="">我是父组件</div>
+      <component>
+        <!-- {{message}} -->
+        <!-- 具名slot  -->
+        <h1 slot="header">这里可能是一个页面标题</h1>
+        <p>主要内容的一个段落。</p>
+        <p>另一个主要段落。</p>
+        <p slot="footer">i am footer</p>
+        <template scope="props" slot='chacao'>
+          <!-- 插槽 -->
+          <span>hello from parent</span>
+          <br>
+          <span>{{ props.text }}</span>
+        </template>
+      </component>
+    </div>
+    <template id="component" scope='props'>
+      <div class="">
+        <div class="">i am component</div>
+        <!-- <slot>只有在没有要分发的内容时候显示</slot> -->
+        <header>
+          <slot name="header"></slot>
+        </header>
+        <main>
+          <slot></slot>
+        </main>
+        <footer>
+          <slot name="footer"></slot>
+        </footer>
+        <slot text="hello from child" name="chacao"></slot>
+      </div>
+    </template>
+  </body>
+  <script type="text/javascript">
+    Vue.component("component",{
+      template: "#component"
+    })
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        message: "hello"
+      }
+    })
+  </script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>组件</title>
+    <script src="https://unpkg.com/vue@2.3.3/dist/vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+        <conponent-name message='字面常量' v-bind:alive-message='name1'></conponent-name>
+        <button type="button" name="button" v-on:click="changeName1">改变动态传递的alive-message</button>
+        <component2></component2>
+        <hr>
+        <div class="">
+          father number : {{number}}
+        </div>
+        <component3 v-bind:propsnumber="number" v-on:eventname="dealevent"></component3>
+    </div>
+    <template id="scriptTemplate">
+      <div>
+        <div>i am script template</div>
+        <div class="">
+          <div class="">props number: {{propsnumber}}</div>
+          <div class="">props-local number: {{localnumber}}</div>
+          <div class="">
+            <!-- 使用methods异常，虽然可以正常使用，但是提醒使用computed,因为computed依赖缓存 -->
+            <button type="button" name="button" v-on:click="add">add number +1</button>
+            <button type="button" name="button" v-on:click="del">del number -1</button>
+            <button type="button" name="button" v-on:click="emmit">change father number</button>
+          </div>
+        </div>
+      </div>
+    </template>
+  </body>
+  <script type="text/javascript">
+  // 全局注册组建
+    Vue.component("conponent-name",{
+      template: "<div>i am component {{message}} {{aliveMessage}}</div>",
+      props: ["message","aliveMessage"]
+
+    })
+    Vue.component("component3",{
+      template: "#scriptTemplate",
+      props: ['propsnumber'],
+      data:function () {
+        return {
+          localnumber: this.propsnumber
+        }
+      },
+      computed: {
+      },
+      methods: {
+        add: function () {
+          /*
+          *或出现警告，定义到本地使用
+          */
+          console.log(1);
+          // this.propsnumber = this.propsnumber + 1
+          this.localnumber+=1
+        },
+        del: function () {
+          this.localnumber-=1
+        },
+        emmit: function () {
+          /*
+          * 发射事件，通知父改变number 值
+          */
+          this.$emit('eventname',this.localnumber)
+        }
+      }
+    })
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        name1: 'props传递数据',
+        number: 0
+      },
+      methods: {
+        changeName1: function () {
+          this.name1 = this.name1!="props传递数据" ? 'props传递数据' : "i have been changed"
+        },
+        dealevent: function (extra) {
+          this.number += extra
+        }
+      },
+      components: {
+        component2: {//局部注册
+          template:'<div>i am component2</div>'
+        }
+      }
+    })
+  </script>
+</html>
